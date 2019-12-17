@@ -42,8 +42,6 @@ class Pricing(object):
         return menge
 
 
-    def customer(self):
-        pass
     def _price_model(self):
         '''
         caculate the price with
@@ -138,6 +136,10 @@ class Pricing(object):
         q_be = c_fix/d  # break even Menge
 
         return q_be
+
+    def customer(self):
+        pass
+
 
 
 

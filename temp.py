@@ -40,12 +40,16 @@ plt.show()
 
 n = 5
 model = BasisParameter(n,cfg,path)
-F,f, Epsilon_F,_,_,_ = model.consumer_theta()
-H,h,Epsilon_H,_,_,_ = model.producer_phi()
-u, p, V, v, V_onevalue,v_onevalue, Epsilon_V = model.profit_Epsilon()
+F,f, Epsilon_F,_,_,Epsilon_F_onevalue = model.consumer_theta()
+H,h,Epsilon_H,_,_,Epsilon_H_onevalue = model.producer_phi()
+u, p, V, v,lambda_n,Epsilon_V, V_onevalue,v_onevalue, Epsilon_V_onevalue,lambda_n_onevalue = model.profit_Epsilon()
 plat_profit,_,_ = model.platform_profit(F)
 model.platform_profit_show_in3D()
 model.platform_lambda(Epsilon_H,Epsilon_F,Epsilon_V)
+model.producer_profit_to_constumer_profit(Epsilon_H,Epsilon_F,lambda_n,Epsilon_V)
+
+model.producer_profit_to_constumer_profit(Epsilon_H_onevalue,Epsilon_F_onevalue,lambda_n_onevalue,Epsilon_V_onevalue)
+
 #print(F)
 
 

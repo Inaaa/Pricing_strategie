@@ -115,8 +115,8 @@ class BasisParameter(object):
         plt.show()
 
         #calculate the value
-        H_onevalue = float(H.subs('phi', self.cfg.THETA))
-        h_onevalue = float(h.subs('phi', self.cfg.THETA))
+        H_onevalue = float(H.subs('phi', self.cfg.PHI))
+        h_onevalue = float(h.subs('phi', self.cfg.PHI))
         Epsilon_H_onevalue = self.cfg.PHI*h_onevalue/H_onevalue
         #print(F_onevalue)
         print('producer_phi H=', H)
@@ -174,11 +174,12 @@ class BasisParameter(object):
         plt.show()
 
         # calculate the value
-        V_onevalue = float(V.subs('n', self.cfg.THETA))
-        v_onevalue = float(v.subs('n', self.cfg.THETA))
+        V_onevalue = float(V.subs('n', self.cfg.N))
+        v_onevalue = float(v.subs('n', self.cfg.N))
         Epsilon_V_onevalue = self.cfg.PHI * v_onevalue / V_onevalue
+        lambda_n_onevalue = float(lambda_n.subs('n',self.cfg.N))
         # print(F_onevalue)
-        return u,p,V,v, V_onevalue, v_onevalue, Epsilon_V_onevalue
+        return u,p,V,v, lambda_n,Epsilon_V, V_onevalue, v_onevalue, Epsilon_V_onevalue,lambda_n_onevalue
 
     def platform_profit(self,F):
         n, theta= symbols("n theta")
@@ -211,9 +212,26 @@ class BasisParameter(object):
         plt.show()
 
 
-        #f = lambdify((n,theta),plat_profit)
+        #f = lambdify((n,theta),plat_profit)wuhan
 
         return plat_profit, plat_profit_dif_n,plat_profit_dif_theta
+
+    def producer_profit_to_constumer_profit(self,Epsilon_H,Epsilon_F,lambda_n,Epsilon_V):
+
+        producer_profit_to_constumer_profit = Epsilon_V*(1+Epsilon_F)*(1-(1-lambda_n)*(1+Epsilon_H))/ \
+                                              (1+Epsilon_H)*(1-lambda_n*Epsilon_V*(1+Epsilon_F))
+
+
+        print(type(producer_profit_to_constumer_profit))
+
+        print(producer_profit_to_constumer_profit)
+        return(producer_profit_to_constumer_profit)
+
+    def calculate(self,producer_profit_to_constomer_profit):
+
+        n=10
+        phi=5
+        theta=5
 
 
 
@@ -251,6 +269,7 @@ class BasisParameter(object):
         lambda_min_value = []
         print('lambda_min=', lambda_min)
         print('lambda_max =',lambda_max)
+        '''
         theta = []
         phi=[]
         lambda_max_value =[]
@@ -269,7 +288,7 @@ class BasisParameter(object):
         plt.legend()
         plt.savefig(self.path + 'platform_lambda.png')
         plt.show()
-
+        '''
 
 
 

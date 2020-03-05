@@ -15,6 +15,7 @@ def two_side_config():
     cfg.THETA = 5
     cfg.PD = 10 # producer charge profi to platform
     cfg.PHI = 5
+    cfg.N = 6
 
     return cfg
 

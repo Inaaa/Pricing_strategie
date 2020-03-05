@@ -1,30 +1,31 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Sep 24 16:17:13 2015
+from sympy import var
+r, t, d = var('rate time short_life')
+d = r*t+5*t
+d
 
-@author: Eddy_zheng
-"""
+r = 80
+t = 2
+d         # We haven't changed d, only r and t
 
-from matplotlib import pyplot as plt
-import numpy as np
-from mpl_toolkits.mplot3d import Axes3D
+d = r*t
+d
 
-fig = plt.figure()
-ax = Axes3D(fig)
-X = np.arange(-4, 4, 0.25)
-Y = np.arange(-4, 4, 0.25)
-X, Y = np.meshgrid(X, Y)
-R = np.sqrt(X**2 + Y**2)
-print(type(R))
-Z = np.sin(R)
+c, d = var('c d')
+c
+d
 
-# 具体函数方法可用 help(function) 查看，如：help(ax.plot_surface)
-ax.plot_surface(X, Y, Z, rstride=1, cstride=1, cmap='rainbow')
+def ctimesd():
+    """
+    This function returns whatever c is times whatever d is.
+    """
+    return c*d
 
-plt.show()
+print(type(ctimesd()))
 
+c = 2
+c
 
-
+print(ctimesd())
 
 
 

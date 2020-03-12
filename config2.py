@@ -17,6 +17,11 @@ def two_side_config():
     cfg.PHI = 5
     cfg.N = 6
 
+
+    #config for example 2
+    cfg.BETA = 0.5
+    cfg.AA = 2
+
     return cfg
 
 

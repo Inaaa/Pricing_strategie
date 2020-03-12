@@ -13,9 +13,10 @@ matplotlib.use( 'tkagg' )
 
 # plot the u(n),p(n),v(n)
 cfg = two_side_config()
-path ='/home/chli/Documents/hiwi/Pricing_strategie/result/'
+path ='/home/chli/Documents/hiwi/Pricing_strategie/result2/'
 
 model = BasisParameter(cfg,path)
+
 
 u = model.consumer()
 p = model.producer()
@@ -40,6 +41,7 @@ name =['n','Epsilon_V','lambda_n','Epsilon_V+lambda_n.png']
 model.visulation2(name,Epsilon_V,lambda_n)
 
 plat_profit,plat_profit_dif_n,plat_profit_dif_theta = model.platform_profit(F)
+
 model.platform_profit_show_in3D()
 
 lambda_min,lambda_max=model.platform_lambda(Epsilon_H,Epsilon_F,Epsilon_V)

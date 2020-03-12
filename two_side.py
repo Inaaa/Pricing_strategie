@@ -26,14 +26,21 @@ class BasisParameter(object):
         self.cfg = cfg2
         self.path = path
         #print(self.cfg)
-    def consumer(self):
+    def consumer(self,*args):
         '''
         self.u =  surplus obtained  from the n products;  linear function
         define the inflection point n=10
 
         '''
         n = symbols('n')
-        u = self.cfg.A + self.cfg.B * n
+        if len(args) == 0:
+            u = self.cfg.A + self.cfg.B * n
+        else:
+            #u = (1-self.cfg.BETA)*self.cfg.AA*pow(n,self.cfg.BETA)
+            u = (1 - args[0]) * args[1] * pow(n, args[0])
+        print(args)
+        print(len(args))
+        #u = (1-beta)*a*pow(n,beta)
         #self.epsilon = theta *self.f/self.F
         return u
 
@@ -52,13 +59,17 @@ class BasisParameter(object):
 
         return F,f,Epsilon_F, F_onevalue, f_onevalue, Epsilon_F_onevalue
 
-    def producer(self):
+    def producer(self,*args):
         '''
         self.p = the profit per platform consumer net of variable costs
 
         '''
         n = symbols('n')
-        p = self.cfg.C - self.cfg.D * n
+        if len(args) == 0:
+            p = self.cfg.C - self.cfg.D * n
+        else:
+            #p = self.cfg.BETA*self.cfg.AA*pow(n,self.cfg.BETA-1)
+            p = args[0] * args[1] * pow(n, args[0] - 1)
         return p
 
     def producer_phi(self):
@@ -98,7 +109,7 @@ class BasisParameter(object):
         # print(F_onevalue)
         return v, lambda_n,Epsilon_V, V_onevalue, v_onevalue, Epsilon_V_onevalue,lambda_n_onevalue
 
-    def platform_profit(self,F):
+    def platform_profit(self,F,*args):
         n, theta= symbols("n theta")
 
         plat_profit = self.cfg.PU*F +n*self.cfg.PD
@@ -187,6 +198,7 @@ class BasisParameter(object):
         '''
         return lambda_min,lambda_max
 
+
     def visulation(self,args,x1,x2,x3):
 
         x1_value = []
@@ -199,16 +211,27 @@ class BasisParameter(object):
             x2_value.append(float(x2.subs(args[0], i)))
             x3_value.append(float(x3.subs(args[0], i)))
 
-        plt.figure()
-        plt.plot(x_value, x1_value, "r-", linewidth=1, label=args[1]+'='+str(x1))  # 画图
-        plt.plot(x_value, x2_value, "y-", linewidth=1, label=args[2]+'='+str(x2))  # 画图
-        plt.plot(x_value, x3_value, "g-", linewidth=1, label=args[3]+'='+str(x3))  # 画图
-        plt.legend()
-        plt.xlabel(args[0])
-        plt.savefig(self.path + args[4])
-        plt.show()
+        if len(args) == 5:
+            plt.figure()
+            plt.plot(x_value, x1_value, "r-", linewidth=1, label=args[1]+'='+str(x1))  # 画图
+            plt.plot(x_value, x2_value, "y-", linewidth=1, label=args[2]+'='+str(x2))  # 画图
+            plt.plot(x_value, x3_value, "g-", linewidth=1, label=args[3]+'='+str(x3))  # 画图
+            plt.legend()
+            plt.xlabel(args[0])
+            plt.savefig(self.path + args[4])
+            plt.show()
+
+        else:
+            plt.plot(x_value, x1_value, args[5] + "--", linewidth=1,
+                     label=args[1] + '=' + str(x1) + '  beta =' + args[6][0:3])  # 画图
+            plt.plot(x_value, x2_value, args[5] + "-", linewidth=1, label=args[2] + '=' + str(x2))  # 画图
+            plt.plot(x_value, x3_value, args[5] + ".", linewidth=1, label=args[3] + '=' + str(x3))  # 画图
+
+
 
     def visulation2(self,args,x1,x2):
+
+
 
         x1_value = []
         x2_value = []
@@ -218,13 +241,19 @@ class BasisParameter(object):
             x1_value.append(float(x1.subs(args[0], i)))
             x2_value.append(float(x2.subs(args[0], i)))
 
-        plt.figure()
-        plt.plot(x_value, x1_value, "r-", linewidth=1, label=args[1]+'='+str(x1))  # 画图
-        plt.plot(x_value, x2_value, "y-", linewidth=1, label=args[2]+'='+str(x2))  # 画图
-        plt.legend()
-        plt.xlabel(args[0])
-        plt.savefig(self.path + args[3])
-        plt.show()
+        if len(args) == 4:
+            plt.figure()
+            plt.plot(x_value, x1_value, "r-", linewidth=1, label=args[1]+'='+str(x1))  # 画图
+            plt.plot(x_value, x2_value, "y-", linewidth=1, label=args[2]+'='+str(x2))  # 画图
+            plt.legend()
+            plt.xlabel(args[0])
+            plt.savefig(self.path + args[3])
+            plt.show()
+        else:
+            plt.plot(x_value, x1_value, args[4] + "--", linewidth=1,
+                     label=args[1] + '=' + str(x1)[0:4] + '  beta =' + args[5][0:3])  # 画图
+            plt.plot(x_value, x2_value, args[4] + "-", linewidth=1, label=args[2] + '=' + str(x2)[0:4])
+
 
 
 

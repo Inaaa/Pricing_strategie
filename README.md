@@ -2,7 +2,10 @@
 
 # install
 to run this code, you need to install :
+
 pip install numpy, matplotlib, easydict
+
+https://github.com/Inaaa/Pricing_strategie.git
 
 # run
 run main_two_site.py, you can get the result of file 'result' and 'result3'. For 'result' both function of u and pi are lineral.For 'result3',it's a realize of example1 of paper below.

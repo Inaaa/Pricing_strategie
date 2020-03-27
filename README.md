@@ -2,9 +2,7 @@
 
 # install
 to run this code, you need to install :
-pip install numpy
-pip install matplotlib
-pip install easydict
+pip install numpy, matplotlib, easydict
 
 # run
 run temp.py, you can get the result of file 'result'. here both function of u and pi are lineral.

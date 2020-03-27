@@ -35,9 +35,21 @@ class BasisParameter(object):
         n = symbols('n')
         if len(args) == 0:
             u = self.cfg.A + self.cfg.B * n
-        else:
+        elif len(args)== 2:
+
             #u = (1-self.cfg.BETA)*self.cfg.AA*pow(n,self.cfg.BETA)
             u = (1 - args[0]) * args[1] * pow(n, args[0])
+            # example 1
+        else:
+            ## 0< alpha <theta<1
+            #u = (1- alpha)*pow((alpha *theta /c ),(alpha/(1-alpha)))*pow(n, alpha*(1-theta)/(theta*(1-alpha)))
+            par1=(1- args[0])*pow((args[0]*args[1]/args[2]),(args[0]/(1-args[0])))
+            par1=round(par1, 5 - len(str(int(par1)))) if len(str(par1)) > 5 + 1 else par1
+            u = par1*pow(n,args[0]*(1-args[1])/(args[1]*(1-args[0])))
+
+
+
+
         print(args)
         print(len(args))
         #u = (1-beta)*a*pow(n,beta)
@@ -67,9 +79,15 @@ class BasisParameter(object):
         n = symbols('n')
         if len(args) == 0:
             p = self.cfg.C - self.cfg.D * n
-        else:
+        elif len(args) ==2:
             #p = self.cfg.BETA*self.cfg.AA*pow(n,self.cfg.BETA-1)
             p = args[0] * args[1] * pow(n, args[0] - 1)
+        else:
+            #p = (1 - theta)*alpha*pow((alpha*theta/c),(alpha/(1-alpha)))* pow(n,-1*(theta-alpha)/(theta *(1-alpha)))
+            par1=(1-args[1])*args[0]*pow((args[0]*args[1]/args[2]),(args[0]/(1-args[0])))
+            par1=round(par1, 5 - len(str(int(par1)))) if len(str(par1)) > 5 + 1 else par1
+            p = par1*pow(n, -1*(args[1]-args[0])/(args[1]*(1-args[0])))
+
         return p
 
     def producer_phi(self):
